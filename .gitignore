@@ -1,0 +1,10 @@
+.env
+.faunarc
+.next
+.DS_Store
+
+node_modules
+data
+src/scripts
+
+.vercel
