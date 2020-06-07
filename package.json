@@ -1,0 +1,45 @@
+{
+  "name": "censuranao.com",
+  "version": "1.0.0",
+  "description": "Censura não!",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hugomn/censuranao.com.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "keywords": [],
+  "author": "Hugo Nogueira <hello@hugo.im>",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/react-common": "3.1.4",
+    "@apollo/react-components": "3.1.5",
+    "@apollo/react-hoc": "3.1.5",
+    "@apollo/react-hooks": "3.1.5",
+    "apollo-cache-inmemory": "1.6.6",
+    "apollo-client": "2.6.10",
+    "apollo-link-http": "1.5.17",
+    "cookie": "0.4.1",
+    "faunadb": "2.14.2",
+    "graphql": "14.3.1",
+    "graphql-tag": "2.10.3",
+    "next": "9.4.4",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.15.1",
+    "@graphql-codegen/fragment-matcher": "1.15.1",
+    "@graphql-codegen/introspection": "1.15.1",
+    "@graphql-codegen/typescript": "1.15.1",
+    "@graphql-codegen/typescript-operations": "1.15.1",
+    "@graphql-codegen/typescript-react-apollo": "1.15.1",
+    "@types/react": "16.9.35",
+    "typescript": "3.9.5"
+  }
+}

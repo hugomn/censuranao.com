@@ -1,0 +1,22 @@
+type Entry {
+  regiao: String!
+  estado: String
+  municipio: String
+  coduf: Int
+  codmun: Int
+  codRegiaoSaude: Int
+  nomeRegiaoSaude: String
+  data: String!
+  semanaEpi: Int
+  populacaoTCU2019: String
+  casosAcumulado: Int
+  casosNovos: Int
+  obitosAcumulado: Int
+  obitosNovos: Int
+  recuperadosnovos: Int
+  emAcompanhamentoNovos: Int
+}
+
+type Query {
+  findAllEntriesByRegiao(regiao: String): [Entry!]
+}

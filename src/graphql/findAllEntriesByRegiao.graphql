@@ -1,0 +1,24 @@
+query findAllEntriesByRegiao($regiao: String, $size: Int, $cursor: String) {
+  findAllEntriesByRegiao(regiao: $regiao, _size: $size, _cursor: $cursor) {
+    data {
+      regiao
+      estado
+      municipio
+      coduf
+      codmun
+      codRegiaoSaude
+      nomeRegiaoSaude
+      data
+      semanaEpi
+      populacaoTCU2019
+      casosAcumulado
+      casosNovos
+      obitosAcumulado
+      obitosNovos
+      recuperadosnovos
+      emAcompanhamentoNovos
+    }
+    after
+    before
+  }
+}
