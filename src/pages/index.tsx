@@ -21,7 +21,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
         <div className="title"><b>Painel</b> Coronavírus</div>
         <div className="updated">Atualizado em: 06/06/2020 22:00</div>
 
-        <div className="card bg-white mt-8 max-w-sm w-full lg:max-w-full lg:flex">
+        <div className="card bg-white mt-8 max-w-sm lg:flex">
           <div className="p-4 flex flex-col justify-between leading-normal">
             <div>
               <p className="text text-gray-600 flex items-center">
