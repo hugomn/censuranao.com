@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/react-hooks'
 import { useApollo } from 'lib/apollo'
-import './index.css'
+import './app.css'
 import { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {

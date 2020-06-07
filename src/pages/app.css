@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Circular STD Book";
+  src: url("/fonts/circular-std-book.ttf");
+}
+
+body {
+  background-color: rgba(29, 165, 132, 0.05);
+}
+
+main {
+  font-family: "Circular STD Book", "SF Pro Icons", "Helvetica Neue",
+    "Helvetica", "Arial", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  line-height: 18px;
+  letter-spacing: -0.2px;
+  color: rgba(75, 75, 84, 0.78);
+  padding: 16px 44px;
+  margin: 0 auto;
+}

@@ -4,36 +4,79 @@ import { initializeApollo } from "lib/apollo";
 import BaseTemplate from "templates/Base";
 import { FindAllEntriesByRegiaoDocument, FindAllEntriesByRegiaoQuery, Entry } from "generated/graphql";
 import NumberFormat from 'react-number-format';
+import clsx from 'clsx';
+
+import styles from "./index.module.scss"
 
 type IndexPageProps = {
   entries: Entry[]
 }
 
 const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
-  const totalDeaths = entries.reduce<number>((acc, { obitosNovos }) => acc + (obitosNovos ?? 0), 0)
+  const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { casosNovos, obitosNovos }) => [acc[0] + (casosNovos ?? 0), acc[1] + (obitosNovos ?? 0)], [0, 0])
   return (
     <BaseTemplate>
       <Head>
-        <title>Painel Covid</title>
+        <title>Coronavírus Brasil - Censura Não!</title>
       </Head>
-      <div>
-        <div className="label">COVID19</div>
-        <div className="title"><b>Painel</b> Coronavírus</div>
-        <div className="updated">Atualizado em: 06/06/2020 22:00</div>
+      <>
+        <div className={clsx(styles.welcome, "mt-8")}>
+          <div className={styles.subtitle}>COVID19</div>
+          <div className={styles.title}><b>Painel</b> Coronavírus</div>
+          <div className={styles.updated}>Atualizado em: 06/06/2020 23:00</div>
+        </div>
 
-        <div className="card bg-white mt-8 max-w-sm lg:flex">
-          <div className="p-4 flex flex-col justify-between leading-normal">
-            <div>
-              <p className="text text-gray-600 flex items-center">
-                Óbitos confirmados
-              </p>
-              <div className="total text-gray-900 font-bold text-xl mb-2">
-                <NumberFormat value={totalDeaths} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+        <div className="flex flex-col md:flex-row ">
+          
+          <div className={clsx(styles.casesWrapper, "bg-white mt-8 w-full lg:flex")}>
+            <div className="px-5 py-6 flex flex-col justify-between leading-normal">
+              <div>
+                <p className={styles.casesTitle}>
+                  Casos confirmados
+                </p>
+                <div className={clsx(styles.total, "mb-2")}>
+                  <NumberFormat value={totalCases} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+                </div>
+                <div className={styles.label}>Acumulado</div>
               </div>
             </div>
           </div>
+          
+          <div className={clsx(styles.deathsWrapper, "bg-white mt-8 w-full lg:flex md:ml-8")}>
+            <div className="px-5 py-6 flex flex-col justify-between leading-normal">
+              <div>
+                <p className={styles.deathsTitle}>
+                  Óbitos confirmados
+                </p>
+                <div className={clsx(styles.total, "mb-2")}>
+                  <NumberFormat value={totalDeaths} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+                </div>
+                <div className={styles.label}>Acumulado</div>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
+
+        <div className="flex flex-col">
+          
+          <div className={clsx(styles.aboutWrapper, "bg-white mt-8 w-full")}>
+            <div className="px-5 py-6 flex flex-col justify-between leading-normal">
+              <div>
+                <p className={styles.aboutTitle}>
+                  <b>Sobre o painel</b>
+                </p>
+                <p>O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de 
+                  tecnologia, em respostas às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
+                  compremetem a clareza necessária ao povo brasileiro num momento de pandemia e em que informações são essenciais para a 
+                  tomada de decisão individual.</p>
+              </div>
+            </div>
+          </div>
+          <p className={styles.source}>Fonte: Secretarias Estaduais de Saúde. Brasil, 2020</p>
+
+        </div>
+      </>
     </BaseTemplate>
   );
 };
