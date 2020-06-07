@@ -124,7 +124,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
           <div className={styles.casesChartSectionTitle}><b>Casos</b> Confirmados</div>
           <div className="flex flex-col lg:flex-row ">
 
-            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex")}>
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:w-1/2 lg:flex")}>
               <div className="px-5 py-6 flex flex-col w-full justify-between leading-normal">
                 <p className={styles.chartTitle}>
                   Casos novos de COVID-19 por data de notificação
@@ -145,8 +145,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
               </div>
             </div>
 
-            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex md:ml-8")}>
-              <div className="px-5 py-6 flex flex-col justify-between w-full leading-normal">
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:w-1/2 lg:flex lg:ml-8")}>
+              <div className="px-5 py-6 flex flex-col w-full justify-between leading-normal">
                 <p className={styles.chartTitle}>
                 Casos novos de COVID-19 por Semana Epidemiológica de notificação
                 </p>
@@ -174,7 +174,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
           <div className={styles.chartSectionTitle}><b>Óbitos</b> Confirmados</div>
           <div className="flex flex-col lg:flex-row ">
 
-            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex")}>
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:w-1/2 lg:flex")}>
               <div className="px-5 py-6 flex flex-col w-full justify-between leading-normal">
                 <p className={styles.chartTitle}>
                   Óbitos de COVID-19 por data de notificação
@@ -195,7 +195,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
               </div>
             </div>
 
-            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex md:ml-8")}>
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:w-1/2 lg:flex lg:ml-8")}>
               <div className="px-5 py-6 flex flex-col justify-between w-full leading-normal">
                 <p className={styles.chartTitle}>
                   Óbitos de COVID-19 por Semana Epidemiológica de notificação
