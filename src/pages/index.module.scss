@@ -1,5 +1,6 @@
 $primary-color: #1da584;
 $secondary-color: #9a36bb;
+$title-color: #172b3e;
 $grey: #8498ae;
 $grey-2: #6f7982;
 
@@ -20,7 +21,7 @@ $grey-2: #6f7982;
   font-size: 28px;
   line-height: 34px;
   letter-spacing: -0.41px;
-  color: #172b3e;
+  color: $title-color;
 }
 
 .updated {
@@ -115,4 +116,58 @@ $grey-2: #6f7982;
 .source {
   padding: 16px 16px;
   color: $grey;
+}
+
+.chartWrapper {
+  @extend .card;
+  position: relative;
+  font-size: 14px;
+}
+
+.chartTitle {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: -0.84px;
+  color: $title-color;
+  height: 77px;
+}
+
+.chartLabel {
+  transform: translateY(20px);
+}
+
+.chartSectionTitle {
+  position: relative;
+  margin: 44px 10px 12px 0px;
+  padding-left: 16px;
+  color: #18212f;
+  font-size: 30px;
+  text-align: left;
+  line-height: 22px;
+  letter-spacing: -0.84px;
+}
+
+.chartSectionTitle:after {
+  background: $secondary-color;
+  box-shadow: 0 3px 8px 0 rgba(154, 54, 187, 0.24);
+  display: block;
+  content: "";
+  width: 6px;
+  height: 38px;
+  border-radius: 15px;
+  top: 50%;
+  left: 0;
+  position: absolute;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.casesChartSectionTitle {
+  @extend .chartSectionTitle;
+}
+
+.casesChartSectionTitle:after {
+  background: $primary-color;
+  box-shadow: 0 3px 8px 0 rgba(29, 165, 132, 0.32);
 }

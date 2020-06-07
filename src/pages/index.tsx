@@ -6,6 +6,9 @@ import { FindAllEntriesByRegiaoDocument, FindAllEntriesByRegiaoQuery, Entry } fr
 import NumberFormat from 'react-number-format';
 import clsx from 'clsx';
 import { NextSeo } from 'next-seo';
+import {
+  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label,
+} from 'recharts';  
 
 import styles from "./index.module.scss"
 
@@ -13,8 +16,23 @@ type IndexPageProps = {
   entries: Entry[]
 }
 
+const groupEntriesByWeek = (entries: Entry[]): Entry[] => {
+  const grouped: Entry[] = [];
+  for(let entry of entries) {
+    const existing = grouped.find(e => e.semanaEpi === entry.semanaEpi);
+    if (existing) {
+      existing.obitosNovos = (existing.obitosNovos ?? 0) + (entry.obitosNovos ?? 0);
+      existing.casosNovos = (existing.casosNovos ?? 0) + (entry.casosNovos ?? 0);
+    } else {
+      grouped.push({ ...entry });
+    }
+  }
+  return grouped;
+}
+
 const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
   const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { casosNovos, obitosNovos }) => [acc[0] + (casosNovos ?? 0), acc[1] + (obitosNovos ?? 0)], [0, 0])
+  const entriesGroupedByWeek = entries.reduce((acc, entry) => acc);
   const description = `O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de 
   tecnologia, em respostas às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
   compremetem a clareza necessária ao povo brasileiro num momento de pandemia e em que informações são essenciais para a 
@@ -100,8 +118,107 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
             </div>
           </div>
           <p className={styles.source}>Fonte: <a href="https://mobileapps.saude.gov.br/esus-vepi/files/unAFkcaNDeXajurGB7LChj8SgQYS2ptm/c7d4f3371dc96ba0935d5c74d4daff05_HIST_PAINEL_COVIDBR_06jun2020.xlsx" target="_blank">Planilha oficial do Ministério da Saúde, 06/06/2020</a> e Secretarias Estaduais de Saúde. Brasil, 2020</p>
-
         </div>
+
+        <div className="flex flex-col">
+          <div className={styles.casesChartSectionTitle}><b>Casos</b> Confirmados</div>
+          <div className="flex flex-col lg:flex-row ">
+
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex")}>
+              <div className="px-5 py-6 flex flex-col w-full justify-between leading-normal">
+                <p className={styles.chartTitle}>
+                  Casos novos de COVID-19 por data de notificação
+                </p>
+                <div className={clsx(styles.chart)}>
+                  <ResponsiveContainer width="100%" height={450}>
+                    <BarChart data={entries} >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="data" angle={-45} height={100} textAnchor="end" interval={6}>
+                        <Label value="Data da notificação" className={styles.chartLabel}></Label>
+                      </XAxis>
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="casosNovos" name="Casos novos" fill="#1da584" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex md:ml-8")}>
+              <div className="px-5 py-6 flex flex-col justify-between w-full leading-normal">
+                <p className={styles.chartTitle}>
+                Casos novos de COVID-19 por Semana Epidemiológica de notificação
+                </p>
+                <div className={clsx(styles.chart)}>
+                <ResponsiveContainer width="100%" height={450}>
+                  <BarChart data={groupEntriesByWeek(entries)} >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="semanaEpi" height={100}>
+                      <Label value="Semana Epidemiológica" className={styles.chartLabel}></Label>
+                    </XAxis>
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="casosNovos" name="Casos novos" fill="#1da584" />
+                  </BarChart>
+                </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div className="flex flex-col mt-8 mb-8">
+          <div className={styles.chartSectionTitle}><b>Óbitos</b> Confirmados</div>
+          <div className="flex flex-col lg:flex-row ">
+
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex")}>
+              <div className="px-5 py-6 flex flex-col w-full justify-between leading-normal">
+                <p className={styles.chartTitle}>
+                  Óbitos de COVID-19 por data de notificação
+                </p>
+                <div className={clsx(styles.chart)}>
+                  <ResponsiveContainer width="100%" height={450}>
+                    <BarChart data={entries} >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="data" angle={-45} height={100} textAnchor="end" interval={6}>
+                        <Label value="Data da notificação" className={styles.chartLabel}></Label>
+                      </XAxis>
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="obitosNovos" name="Óbitos novos" fill="#9a36bb" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+
+            <div className={clsx(styles.chartWrapper, "bg-white mt-8 w-full lg:flex md:ml-8")}>
+              <div className="px-5 py-6 flex flex-col justify-between w-full leading-normal">
+                <p className={styles.chartTitle}>
+                  Óbitos de COVID-19 por Semana Epidemiológica de notificação
+                </p>
+                <div className={clsx(styles.chart)}>
+                <ResponsiveContainer width="100%" height={450}>
+                  <BarChart data={groupEntriesByWeek(entries)} >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="semanaEpi" height={100}>
+                      <Label value="Semana Epidemiológica" className={styles.chartLabel}></Label>
+                    </XAxis>
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="obitosNovos" name="Óbitos novos" fill="#9a36bb" />
+                  </BarChart>
+                </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </>
     </BaseTemplate>
   );
