@@ -1,43 +1,37 @@
 import Head from "next/head";
-import TableRow from "components/TableRow";
 import { GetStaticProps } from "next"
 import { initializeApollo } from "lib/apollo";
 import BaseTemplate from "templates/Base";
 import { FindAllEntriesByRegiaoDocument, FindAllEntriesByRegiaoQuery, Entry } from "generated/graphql";
+import NumberFormat from 'react-number-format';
 
 type IndexPageProps = {
   entries: Entry[]
 }
 
 const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
+  const totalDeaths = entries.reduce<number>((acc, { obitosNovos }) => acc + (obitosNovos ?? 0), 0)
   return (
     <BaseTemplate>
       <Head>
         <title>Painel Covid</title>
       </Head>
-      <h1>Censura não - painel covid-19</h1>
-      <hr />
-      <div className="container-scroll">
-        <div className="container">
-          <h2>Countries Data</h2>
-          <div className="table">
-            <h4>code</h4>
-            <h4 className="telephone">name</h4>
+      <div>
+        <div className="label">COVID19</div>
+        <div className="title"><b>Painel</b> Coronavírus</div>
+        <div className="updated">Atualizado em: 06/06/2020 22:00</div>
+
+        <div className="card bg-white mt-8 max-w-sm w-full lg:max-w-full lg:flex">
+          <div className="p-4 flex flex-col justify-between leading-normal">
+            <div>
+              <p className="text text-gray-600 flex items-center">
+                Óbitos confirmados
+              </p>
+              <div className="total text-gray-900 font-bold text-xl mb-2">
+                <NumberFormat value={totalDeaths} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+              </div>
+            </div>
           </div>
-          {entries?.length > 0 ? (
-            entries?.map((d) => (
-              <TableRow
-                key={d?.data}
-                code={d?.data}
-                name={d?.obitosAcumulado?.toString()}
-                loading={false}
-              />
-            ))
-          ) : (
-            <>
-              No data...
-            </>
-          )}
         </div>
       </div>
     </BaseTemplate>
