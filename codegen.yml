@@ -2,7 +2,7 @@ overwrite: true
 schema:
   - ${FAUNADB_URL}:
       headers:
-        authorization: "Bearer ${FAUNADB_SECRET_KEY}"
+        authorization: "Bearer ${FAUNADB_CENSURANAO_SECRET_KEY}"
 documents: "src/graphql/**/*.graphql"
 generates:
   src/generated/graphql.tsx:
