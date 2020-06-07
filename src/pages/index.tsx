@@ -39,6 +39,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
             },
           ],
           site_name: 'Censura não!',
+          type: 'website'
         }}
         twitter={{
           cardType: 'summary_large_image',

@@ -1,6 +1,6 @@
 {
   "env": {
-    "FAUNADB_SECRET_KEY": "@faunadb_secret_key",
+    "FAUNADB_CENSURANAO_SECRET_KEY": "@faunadb_censuranao_secret_key",
     "FAUNADB_URL": "@faunadb_url"
   }
 }
