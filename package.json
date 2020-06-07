@@ -36,6 +36,7 @@
     "next-seo": "4.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-ga": "3.0.0",
     "react-number-format": "^4.4.1",
     "sass": "^1.26.8"
   },
