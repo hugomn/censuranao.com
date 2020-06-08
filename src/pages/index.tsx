@@ -11,6 +11,7 @@ import {
 } from 'recharts';  
 
 import styles from "./index.module.scss"
+import useWindowSize from "hooks/useWindowSize";
 
 type IndexPageProps = {
   entries: Entry[]
@@ -32,7 +33,8 @@ const groupEntriesByWeek = (entries: Entry[]): Entry[] => {
 
 const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
   const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { casosNovos, obitosNovos }) => [acc[0] + (casosNovos ?? 0), acc[1] + (obitosNovos ?? 0)], [0, 0])
-  const entriesGroupedByWeek = entries.reduce((acc, entry) => acc);
+  const { width = 1200 } = useWindowSize()
+  const chartAxisInterval = Math.floor(width < 1020 ? 1020*8 / width : 1020*8 / width);
   const description = `O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de 
   tecnologia, em resposta às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
   compremetem a clareza necessária ao povo brasileiro num momento de pandemia e em que informações são essenciais para a 
@@ -65,7 +67,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
       />
       <>
         <div className={clsx(styles.welcome, "mt-8")}>
-          <div className={styles.subtitle}>COVID19</div>
+          <div className={styles.subtitle}>COVID19 - {chartAxisInterval}</div>
           <div className={styles.title}><b>Painel</b> Coronavírus</div>
           <div className={styles.updated}>Atualizado em: 07/06/2020 21:50</div>
         </div>
@@ -133,7 +135,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
                   <ResponsiveContainer width="100%" height={450}>
                     <BarChart data={entries} >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="data" angle={-45} height={100} textAnchor="end" interval={6}>
+                      <XAxis dataKey="data" angle={-45} height={100} textAnchor="end" interval={chartAxisInterval}>
                         <Label value="Data da notificação" className={styles.chartLabel}></Label>
                       </XAxis>
                       <YAxis />
@@ -183,7 +185,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
                   <ResponsiveContainer width="100%" height={450}>
                     <BarChart data={entries} >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="data" angle={-45} height={100} textAnchor="end" interval={6}>
+                      <XAxis dataKey="data" angle={-45} height={100} textAnchor="end" interval={chartAxisInterval}>
                         <Label value="Data da notificação" className={styles.chartLabel}></Label>
                       </XAxis>
                       <YAxis />
