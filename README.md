@@ -10,6 +10,7 @@ tomada de decisão individual.
 - Next.js
 - GraphQL e Apollo
 - Tailwind CSS
+- Recharts
 
 ## Como instalar
 
