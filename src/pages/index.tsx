@@ -34,7 +34,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
   const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { casosNovos, obitosNovos }) => [acc[0] + (casosNovos ?? 0), acc[1] + (obitosNovos ?? 0)], [0, 0])
   const entriesGroupedByWeek = entries.reduce((acc, entry) => acc);
   const description = `O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de 
-  tecnologia, em respostas às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
+  tecnologia, em resposta às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
   compremetem a clareza necessária ao povo brasileiro num momento de pandemia e em que informações são essenciais para a 
   tomada de decisão individual.`;
 
@@ -67,7 +67,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
         <div className={clsx(styles.welcome, "mt-8")}>
           <div className={styles.subtitle}>COVID19</div>
           <div className={styles.title}><b>Painel</b> Coronavírus</div>
-          <div className={styles.updated}>Atualizado em: 06/06/2020 23:00</div>
+          <div className={styles.updated}>Atualizado em: 07/06/2020 21:50</div>
         </div>
 
         <div className="flex flex-col md:flex-row ">
@@ -111,13 +111,13 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
                   <b>Sobre o painel Censura não!</b>
                 </p>
                 <p>O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de 
-                  tecnologia, em respostas às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
+                  tecnologia, em resposta às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
                   compremetem a clareza necessária ao povo brasileiro num momento de pandemia e em que informações são essenciais para a 
                   tomada de decisão individual.</p>
               </div>
             </div>
           </div>
-          <p className={styles.source}>Fonte: <a href="https://mobileapps.saude.gov.br/esus-vepi/files/unAFkcaNDeXajurGB7LChj8SgQYS2ptm/c7d4f3371dc96ba0935d5c74d4daff05_HIST_PAINEL_COVIDBR_06jun2020.xlsx" target="_blank">Planilha oficial do Ministério da Saúde, 06/06/2020</a> e Secretarias Estaduais de Saúde. Brasil, 2020</p>
+          <p className={styles.source}>Fonte: <a href="https://mobileapps.saude.gov.br/esus-vepi/files/unAFkcaNDeXajurGB7LChj8SgQYS2ptm/9a8daec1f0d2382c1491985437c876d7_HIST_PAINEL_COVIDBR_07jun2020.xlsx" target="_blank">Planilha oficial do Ministério da Saúde, 07/06/2020</a> e Secretarias Estaduais de Saúde. Brasil, 2020</p>
         </div>
 
         <div className="flex flex-col">

@@ -1,10 +1,15 @@
 # 🦠 Painel Coronavírus - Censura não!
 
-
-O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de 
-tecnologia, em respostas às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
-compremetem a clareza necessária ao povo brasileiro num momento de pandemia e em que informações são essenciais para a 
+O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de
+tecnologia, em resposta às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
+compremetem a clareza necessária ao povo brasileiro num momento de pandemia e em que informações são essenciais para a
 tomada de decisão individual.
+
+## Tecnologias utilizadas
+
+- Next.js
+- GraphQL e Apollo
+- Tailwind CSS
 
 ## Como instalar
 
@@ -12,20 +17,18 @@ Qualquer contribuição ao painel será extremamente bem-vinda! Siga o processo 
 
 ### 1. Clone o projeto
 
-``git clone git@github.com:hugomn/censuranao.com.git``
+`git clone git@github.com:hugomn/censuranao.com.git`
 
 ### 2. Instale as dependências
 
-``npm install``
+`npm install`
 
 ### 3. Execute o projeto
 
-``npm run dev``
-
+`npm run dev`
 
 ## Quer contribuir?
 
 Envie seu `pull-request` para que você seja adicionado(a) aos contribuidores.
-
 
 #estamosJuntos #censuraNão 🤝 🗣
