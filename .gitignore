@@ -5,6 +5,7 @@
 
 node_modules
 data
-src/scripts
+scripts
+fdm
 
 .vercel

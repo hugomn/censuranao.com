@@ -12,7 +12,7 @@ const createApolloClient = () => {
       uri: process.env.FAUNADB_URL,
       credentials: "same-origin",
       headers: {
-        authorization: `Bearer ${process.env.FAUNADB_CENSURANAO_SECRET_KEY}`,
+        authorization: `Bearer ${process.env.FAUNADB_COVID_SECRET_KEY}`,
       },
     }),
     cache: new InMemoryCache(),

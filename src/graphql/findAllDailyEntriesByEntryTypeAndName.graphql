@@ -1,0 +1,57 @@
+query findAllDailyEntriesByEntryTypeAndName(
+  $entryType: EntryType
+  $name: String
+  $size: Int
+  $cursor: String
+) {
+  findAllDailyEntriesByEntryTypeAndName(
+    entryType: $entryType
+    name: $name
+    _size: $size
+    _cursor: $cursor
+  ) {
+    data {
+      entryType
+      name
+      date
+      source
+      country
+      region
+      state
+      city
+      epiWeek
+      newCases
+      totalCases
+      newDeaths
+      totalDeaths
+      newRecovered
+      totalRecovered
+    }
+    after
+    before
+  }
+}
+# query findAllEntriesByRegiao($regiao: String, $size: Int, $cursor: String) {
+#   findAllEntriesByRegiao(regiao: $regiao, _size: $size, _cursor: $cursor) {
+#     data {
+#       regiao
+#       estado
+#       municipio
+#       coduf
+#       codmun
+#       codRegiaoSaude
+#       nomeRegiaoSaude
+#       data
+#       semanaEpi
+#       populacaoTCU2019
+#       casosAcumulado
+#       casosNovos
+#       obitosAcumulado
+#       obitosNovos
+#       recuperadosnovos
+#       emAcompanhamentoNovos
+#     }
+#     after
+#     before
+#   }
+# }
