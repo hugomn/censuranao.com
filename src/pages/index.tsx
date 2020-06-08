@@ -67,7 +67,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
       />
       <>
         <div className={clsx(styles.welcome, "mt-8")}>
-          <div className={styles.subtitle}>COVID19 - {chartAxisInterval}</div>
+          <div className={styles.subtitle}>COVID19</div>
           <div className={styles.title}><b>Painel</b> Coronavírus</div>
           <div className={styles.updated}>Atualizado em: 07/06/2020 21:50</div>
         </div>
