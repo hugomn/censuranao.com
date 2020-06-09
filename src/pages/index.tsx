@@ -11,10 +11,11 @@ import {
 
 import styles from "./index.module.scss"
 import useWindowSize from "hooks/useWindowSize";
-import { DailyEntry, FindAllDailyEntriesByEntryTypeAndNameQuery, FindAllDailyEntriesByEntryTypeAndNameDocument, EntryType } from "generated/graphql";
+import { DailyEntry, EntryType, FindAllDailyEntriesBySourceQuery, FindAllDailyEntriesBySourceDocument, Source } from "generated/graphql";
+import { useState } from "react";
 
 type IndexPageProps = {
-  entries: DailyEntry[]
+  data: { source: Source, entries: DailyEntry[] }[]
 }
 
 const groupEntriesByWeek = (entries: DailyEntry[]): DailyEntry[] => {
@@ -31,9 +32,14 @@ const groupEntriesByWeek = (entries: DailyEntry[]): DailyEntry[] => {
   return grouped;
 }
 
-const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
+const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
+  const [ source, setSource ] = useState<Source>(Source.HealthMinister);
+  const entries = data?.find(s => s.source === source)?.entries ?? [];
   const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { newCases, newDeaths }) => [acc[0] + (newCases ?? 0), acc[1] + (newDeaths ?? 0)], [0, 0])
   const { width = 1200 } = useWindowSize()
+  const handleChangeSource = (event: React.FormEvent<HTMLSelectElement>): void => {
+    setSource(event.currentTarget.value as Source);
+  };
   const chartAxisInterval = Math.floor(width < 1020 ? 1020*8 / width : 1020*8 / width);
   const description = `O Painel Coronavírus é uma iniciativa independente de desenvolvedores de software, designers a profissionais de 
   tecnologia, em resposta às ações do governo federal que, ao restringir informações em seus boletins diários do Coronavírus,
@@ -66,10 +72,30 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
         }}
       />
       <>
-        <div className={clsx(styles.welcome, "mt-8")}>
+        <div className={clsx("flex flex-col md:flex-row items-center justify-between", styles.header)}>
+          <div className={clsx("flex flex-row items-center text-lg md:text-2xl", styles.logo)}>
+            <b>CORONAVÍRUS</b>
+            <img className={styles.logoImage} src="/images/img-logo.png"></img>
+            <span className={styles.tagline}>CENSURA NÃO</span>
+          </div>
+          <div className={clsx("flex flex-row items-center md:mt-0 mt-3", styles.sourceDropdown)}>
+            <div className="mr-3">Fonte: </div>
+            <div className="inline-block relative w-64">
+              <select onChange={handleChangeSource} value={source} className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option value={Source.HealthMinister}>Ministério da Saúde</option>
+                <option value={Source.Brasilio}>Brasil.io</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={clsx("mt-24 md:mt-20", styles.welcome)}>
           <div className={styles.subtitle}>COVID19</div>
           <div className={styles.title}><b>Painel</b> Coronavírus</div>
-          <div className={styles.updated}>Atualizado em: 08/06/2020 18:30</div>
+          <div className={styles.updated}>Atualizado em: 09/06/2020 08:00</div>
         </div>
 
         <div className="flex flex-col md:flex-row ">
@@ -119,7 +145,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
               </div>
             </div>
           </div>
-          <p className={styles.source}>Fonte: <a href="https://mobileapps.saude.gov.br/esus-vepi/files/unAFkcaNDeXajurGB7LChj8SgQYS2ptm/9a8daec1f0d2382c1491985437c876d7_HIST_PAINEL_COVIDBR_07jun2020.xlsx" target="_blank">Planilha oficial do Ministério da Saúde, 07/06/2020</a> e Secretarias Estaduais de Saúde. Brasil, 2020</p>
+          <p className={styles.source}>Fonte: Ministário da Saúde e Secretarias 
+          Estaduais de Saúde. Brasil, 2020. Portal <a href="https://brasil.io/dataset/covid19/caso_full/" target="_blank">Brasil.io</a>.</p>
         </div>
 
         <div className="flex flex-col">
@@ -227,14 +254,22 @@ const IndexPage: React.FC<IndexPageProps> = ({ entries }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (): Promise<{ props: IndexPageProps }> => {
-  const entries: DailyEntry[] = []
-  let after: string | undefined | null;
-  do {
-    const { data } = await initializeApollo().query<FindAllDailyEntriesByEntryTypeAndNameQuery>({ query: FindAllDailyEntriesByEntryTypeAndNameDocument, variables: { entryType: EntryType.Country, name: "Brasil", cursor: after  } })
-    entries.push(...(data.findAllDailyEntriesByEntryTypeAndName.data as DailyEntry[]))
-    after = data.findAllDailyEntriesByEntryTypeAndName.after
-  } while (after);
-  return { props: { entries: entries.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)) } }
+  const findEntriesBySource = async (source: Source): Promise<DailyEntry[]> => {
+    const entries: DailyEntry[] = []
+    let after: string | undefined | null;
+    do {
+      const { data } = await initializeApollo().query<FindAllDailyEntriesBySourceQuery>({ query: FindAllDailyEntriesBySourceDocument, variables: { entryType: EntryType.Country, name: "Brasil", source, cursor: after  } })
+      entries.push(...(data.findAllDailyEntriesBySource.data as DailyEntry[]))
+      after = data.findAllDailyEntriesBySource.after
+    } while (after);
+    return entries;
+  }
+  const brasilioEntries = await findEntriesBySource(Source.Brasilio);
+  const healthMinisterEntries = await findEntriesBySource(Source.HealthMinister);
+  return { props: { data: [
+    { source: Source.Brasilio, entries: brasilioEntries.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)) },
+    { source: Source.HealthMinister, entries: healthMinisterEntries.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)) }
+  ] } }
 }
 
 export default IndexPage

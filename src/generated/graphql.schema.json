@@ -41,7 +41,7 @@
             "deprecationReason": null
           },
           {
-            "name": "findAllDailyEntriesByEntryTypeAndName",
+            "name": "findAllDailyEntries",
             "description": null,
             "args": [
               {
@@ -80,6 +80,73 @@
                 "type": {
                   "kind": "SCALAR",
                   "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DailyEntryPage",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "findAllDailyEntriesBySource",
+            "description": null,
+            "args": [
+              {
+                "name": "_size",
+                "description": "The number of items to return per page.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "_cursor",
+                "description": "The pagination cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "entryType",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntryType",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "name",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "source",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "Source",
                   "ofType": null
                 },
                 "defaultValue": null

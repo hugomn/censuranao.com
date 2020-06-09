@@ -4,6 +4,47 @@ $title-color: #172b3e;
 $grey: #8498ae;
 $grey-2: #6f7982;
 
+.header {
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 10;
+  position: fixed;
+  padding: 20px 22px;
+  border: 1px solid rgba(28, 28, 28, 0.07);
+  box-shadow: 0 7px 6px 0 rgba(33, 43, 54, 0.04);
+  background-color: #ffffff;
+}
+
+.logo {
+  font-weight: 300;
+  cursor: pointer;
+  color: #333e48;
+  text-align: center;
+  line-height: 24.79px;
+  letter-spacing: -0.63px;
+  b {
+    font-family: "Circular Std";
+    font-weight: 900;
+  }
+}
+
+.logoImage {
+  display: inline-block;
+  height: 24px;
+  margin: 0 5px 3px;
+}
+
+.tagline {
+  font-weight: 200;
+  color: #8498ae;
+}
+
+.welcome {
+  padding-top: 28px;
+}
+
 .card {
   border-radius: 10px;
   border: 1px solid #dbe9f5;
@@ -144,7 +185,7 @@ $grey-2: #6f7982;
   color: #18212f;
   font-size: 30px;
   text-align: left;
-  line-height: 22px;
+  line-height: 32px;
   letter-spacing: -0.84px;
 }
 

@@ -29,8 +29,10 @@ type DailyEntry {
 }
 
 type Query {
-  findAllDailyEntriesByEntryTypeAndName(
+  findAllDailyEntriesBySource(
     entryType: EntryType
     name: String
+    source: Source
   ): [DailyEntry!]
+  findAllDailyEntries(entryType: EntryType, name: String): [DailyEntry!]
 }

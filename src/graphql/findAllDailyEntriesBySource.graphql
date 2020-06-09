@@ -1,0 +1,35 @@
+query findAllDailyEntriesBySource(
+  $entryType: EntryType
+  $name: String
+  $source: Source
+  $size: Int
+  $cursor: String
+) {
+  findAllDailyEntriesBySource(
+    entryType: $entryType
+    name: $name
+    source: $source
+    _size: $size
+    _cursor: $cursor
+  ) {
+    data {
+      entryType
+      name
+      date
+      source
+      country
+      region
+      state
+      city
+      epiWeek
+      newCases
+      totalCases
+      newDeaths
+      totalDeaths
+      newRecovered
+      totalRecovered
+    }
+    after
+    before
+  }
+}
