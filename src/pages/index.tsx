@@ -98,7 +98,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         <div className={clsx("mt-24 md:mt-20", styles.welcome)}>
           <div className={styles.subtitle}>COVID19</div>
           <div className={styles.title}><b>Painel</b> Coronavírus</div>
-          <div className={styles.updated}>Atualizado em: 10/06/2020 18:45</div>
+          <div className={styles.updated}>Atualizado em: 11/06/2020 18:20</div>
         </div>
 
         <div className="flex flex-col md:flex-row ">
