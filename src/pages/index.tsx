@@ -35,7 +35,8 @@ const groupEntriesByWeek = (entries: DailyEntry[]): DailyEntry[] => {
 const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   const [ source, setSource ] = useState<Source>(Source.HealthMinister);
   const entries = data?.find(s => s.source === source)?.entries ?? [];
-  const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { newCases, newDeaths }) => [acc[0] + (newCases ?? 0), acc[1] + (newDeaths ?? 0)], [0, 0])
+  // const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { newCases, newDeaths }) => [acc[0] + (newCases ?? 0), acc[1] + (newDeaths ?? 0)], [0, 0])
+  const { newCases, totalCases, newDeaths, totalDeaths } = entries[entries.length - 1];
   const { width = 1200 } = useWindowSize()
   const handleChangeSource = (event: React.FormEvent<HTMLSelectElement>): void => {
     setSource(event.currentTarget.value as Source);
@@ -109,10 +110,20 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
                 <p className={styles.casesTitle}>
                   Casos confirmados
                 </p>
-                <div className={clsx(styles.total, "mb-2")}>
-                  <NumberFormat value={totalCases} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+                <div className={clsx("flex flex-row")}>
+                  <div>
+                    <div className={clsx(styles.total, "mb-2")}>
+                      <NumberFormat value={totalCases ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+                    </div>
+                    <div className={styles.label}>Acumulado</div>
+                  </div>
+                  <div className={clsx(styles.totalContainer, "ml-16")}>
+                    <div className={clsx(styles.total, "mb-2 text-3xl")}>
+                      <NumberFormat value={newCases ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+                    </div>
+                    <div className={styles.label}>Casos novos</div>
+                  </div>
                 </div>
-                <div className={styles.label}>Acumulado</div>
               </div>
             </div>
           </div>
@@ -123,10 +134,22 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
                 <p className={styles.deathsTitle}>
                   Óbitos confirmados
                 </p>
-                <div className={clsx(styles.total, "mb-2")}>
-                  <NumberFormat value={totalDeaths} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+
+                <div className={clsx("flex flex-row")}>
+                  <div>
+                    <div className={clsx(styles.total, "mb-2")}>
+                      <NumberFormat value={totalDeaths ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+                    </div>
+                    <div className={styles.label}>Acumulado</div>
+                  </div>
+                  <div className={clsx(styles.totalContainer, "ml-16")}>
+                    <div className={clsx(styles.total, "mb-2 text-3xl")}>
+                      <NumberFormat value={newDeaths ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
+                    </div>
+                    <div className={styles.label}>Casos novos</div>
+                  </div>
                 </div>
-                <div className={styles.label}>Acumulado</div>
+
               </div>
             </div>
           </div>
