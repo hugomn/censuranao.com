@@ -112,13 +112,13 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
                 </p>
                 <div className={clsx("flex flex-row")}>
                   <div>
-                    <div className={clsx(styles.total, "mb-2")}>
+                    <div className={clsx(styles.total, "mb-2 text-2xl md:text-4xl")}>
                       <NumberFormat value={totalCases ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
                     </div>
                     <div className={styles.label}>Acumulado</div>
                   </div>
-                  <div className={clsx(styles.totalContainer, "ml-16")}>
-                    <div className={clsx(styles.total, "mb-2 text-3xl")}>
+                  <div className={clsx(styles.totalContainer, "ml-8 md:ml-16")}>
+                    <div className={clsx(styles.total, "mb-2 text-2xl md:text-3xl")}>
                       <NumberFormat value={newCases ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
                     </div>
                     <div className={styles.label}>Casos novos</div>
@@ -137,13 +137,13 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
                 <div className={clsx("flex flex-row")}>
                   <div>
-                    <div className={clsx(styles.total, "mb-2")}>
+                    <div className={clsx(styles.total, "mb-2 text-2xl md:text-4xl")}>
                       <NumberFormat value={totalDeaths ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
                     </div>
                     <div className={styles.label}>Acumulado</div>
                   </div>
-                  <div className={clsx(styles.totalContainer, "ml-16")}>
-                    <div className={clsx(styles.total, "mb-2 text-3xl")}>
+                  <div className={clsx(styles.totalContainer, "ml-8 md:ml-16")}>
+                    <div className={clsx(styles.total, "mb-2 text-2xl md:text-3xl")}>
                       <NumberFormat value={newDeaths ?? 0} displayType={'text'} thousandSeparator={'.'} decimalSeparator= {','} />
                     </div>
                     <div className={styles.label}>Casos novos</div>
