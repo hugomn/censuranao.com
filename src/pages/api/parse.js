@@ -66,7 +66,7 @@ const checkEntryAndInsert = async (entry) => {
       q.Get(
         q.Match(q.Index("findAllDailyEntriesByDateAndSource"), [
           entry.entryType,
-          entry.countr,
+          entry.name,
           entry.date,
           entry.source,
         ])
@@ -74,6 +74,7 @@ const checkEntryAndInsert = async (entry) => {
     );
     return false;
   } catch (error) {
+    console.log("Inserting entry: ", entry);
     await serverClient.query(
       q.Create(q.Collection("DailyEntry"), {
         data: entry,
@@ -92,14 +93,12 @@ const triggerDeploy = () => {
 export default async function signup(req, res) {
   try {
     const healthMinister = await parseHealthMinister();
+    const healthMinisterUpdated = await checkEntryAndInsert(healthMinister);
     const brasilIo = await parseBrasilIo();
-    const updated =
-      (await checkEntryAndInsert(healthMinister)) ||
-      (await checkEntryAndInsert(brasilIo));
+    const brasilIoUpdated = await checkEntryAndInsert(brasilIo);
+    const updated = healthMinisterUpdated || brasilIoUpdated;
     if (updated) {
       console.log("New entries found! Re-building app.");
-      console.log("[HEATH_MINISTER]: ", healthMinister);
-      console.log("[BRASILIO]: ", brasilIo);
       triggerDeploy();
     } else {
       console.log("No new entries found.");
