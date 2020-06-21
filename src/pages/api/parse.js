@@ -91,6 +91,7 @@ const triggerDeploy = () => {
 
 export default async function signup(req, res) {
   try {
+    console.log("key: ", process.env.FAUNADB_COVID_SECRET_KEY);
     const healthMinister = await parseHealthMinister();
     const brasilIo = await parseBrasilIo();
     const updated =
