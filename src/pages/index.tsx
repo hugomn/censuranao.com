@@ -13,9 +13,11 @@ import styles from "./index.module.scss"
 import useWindowSize from "hooks/useWindowSize";
 import { DailyEntry, EntryType, FindAllDailyEntriesBySourceQuery, FindAllDailyEntriesBySourceDocument, Source } from "generated/graphql";
 import { useState } from "react";
+import moment from 'moment';
 
 type IndexPageProps = {
-  data: { source: Source, entries: DailyEntry[] }[]
+  data: { source: Source, entries: DailyEntry[] }[],
+  buildDate: String
 }
 
 const groupEntriesByWeek = (entries: DailyEntry[]): DailyEntry[] => {
@@ -32,7 +34,7 @@ const groupEntriesByWeek = (entries: DailyEntry[]): DailyEntry[] => {
   return grouped;
 }
 
-const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
+const IndexPage: React.FC<IndexPageProps> = ({ buildDate, data }) => {
   const [ source, setSource ] = useState<Source>(Source.HealthMinister);
   const entries = data?.find(s => s.source === source)?.entries ?? [];
   // const [ totalCases, totalDeaths ] = entries.reduce<number[]>((acc, { newCases, newDeaths }) => [acc[0] + (newCases ?? 0), acc[1] + (newDeaths ?? 0)], [0, 0])
@@ -99,7 +101,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         <div className={clsx("mt-24 md:mt-20", styles.welcome)}>
           <div className={styles.subtitle}>COVID19</div>
           <div className={styles.title}><b>Painel</b> Coronavírus</div>
-          <div className={styles.updated}>Atualizado em: 19/06/2020 18:40</div>
+          <div className={styles.updated}>Atualizado em: {buildDate}</div>
         </div>
 
         <div className="flex flex-col md:flex-row ">
@@ -295,7 +297,7 @@ export const getStaticProps: GetStaticProps = async (): Promise<{ props: IndexPa
   return { props: { data: [
     { source: Source.Brasilio, entries: brasilioEntries.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)) },
     { source: Source.HealthMinister, entries: healthMinisterEntries.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)) }
-  ] } }
+  ], buildDate: moment(new Date()).format('DD/MM/YYYY HH:mm') }, }
 }
 
 export default IndexPage

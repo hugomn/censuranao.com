@@ -34,5 +34,11 @@ type Query {
     name: String
     source: Source
   ): [DailyEntry!]
+  findAllDailyEntriesByDateAndSource(
+    entryType: EntryType
+    name: String
+    date: String
+    source: Source
+  ): [DailyEntry!]
   findAllDailyEntries(entryType: EntryType, name: String): [DailyEntry!]
 }
