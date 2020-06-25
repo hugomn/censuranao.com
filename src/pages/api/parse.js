@@ -100,7 +100,7 @@ export default async function signup(req, res) {
     const updated = healthMinisterUpdated || brasilIoUpdated;
     if (updated) {
       console.log("New entries found! Re-building app.");
-      triggerDeploy();
+      await triggerDeploy();
     } else {
       console.log("No new entries found.");
     }
