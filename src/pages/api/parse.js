@@ -84,10 +84,11 @@ const checkEntryAndInsert = async (entry) => {
   }
 };
 
-const triggerDeploy = () => {
-  axios.post(
+const triggerDeploy = async () => {
+  const response = await axios.post(
     "https://api.zeit.co/v1/integrations/deploy/QmcxbXzxbUu8dP22WCs4nJtd1pLcetqZqhoKLtaVTEyMjt/h8HQqpH4Y7"
   );
+  console.log("App deployed: ", response.data.job);
 };
 
 export default async function signup(req, res) {
