@@ -33,7 +33,7 @@
     "faunadb": "2.14.2",
     "graphql": "14.3.1",
     "graphql-tag": "2.10.3",
-    "moment": "2.27.0",
+    "moment": "2.29.4",
     "next": "9.4.4",
     "next-seo": "4.5.0",
     "react": "16.13.1",
